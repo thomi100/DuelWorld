@@ -99,7 +99,7 @@ public class DuelWorld implements Listener {
 				} else if(args[0].equalsIgnoreCase("stats")) {
 					plugin.DuelStats().sendStats(p, args[1]);
 				} else if(args[0].equalsIgnoreCase("history")) {
-					String uuid = UUIDHandler.getUUID(args[1]);
+					String uuid = SQLNames.getUUID(args[1]);
 					if(uuid != null) {
 						plugin.DuelStats().openHistory(p, uuid);
 					} else {

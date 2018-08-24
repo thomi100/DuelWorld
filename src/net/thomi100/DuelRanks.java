@@ -58,7 +58,7 @@ public enum DuelRanks {
 					save = true;
 					if(elo >= 1000 + minus) {
 						fc.set(uuid + ".elo", (elo - minus));
-						System.out.println("[DuelWorld] Took " + minus + " ELO from " + uuid  + " (" + UUIDHandler.getName(uuid) + ").");
+						System.out.println("[DuelWorld] Took " + minus + " ELO from " + uuid  + " (" + SQLNames.getName(uuid) + ").");
 					}
 				}
 			}

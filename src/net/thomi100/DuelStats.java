@@ -86,7 +86,7 @@ public class DuelStats implements Listener {
 		
 		for(String uuid : fc.getKeys(false)) {
 			if(fc.getString(uuid + ".elo") != null) {
-				players.put(UUIDHandler.getName(uuid), fc.getInt(uuid + ".elo"));
+				players.put(SQLNames.getName(uuid), fc.getInt(uuid + ".elo"));
 			}
 		}
 		
@@ -121,7 +121,7 @@ public class DuelStats implements Listener {
 			for(String uuid : files) {
 				File file = new File(plugin.getDataFolder() + "/players/" + uuid.replace(".yml", "") + ".yml");
 				FileConfiguration fc = YamlConfiguration.loadConfiguration(file);
-				players.put(UUIDHandler.getName(uuid.replace(".yml", "")), fc.getInt("stats.wins"));
+				players.put(SQLNames.getName(uuid.replace(".yml", "")), fc.getInt("stats.wins"));
 			}
 		}
 		
@@ -210,7 +210,7 @@ public class DuelStats implements Listener {
 				elo = Integer.parseInt(s[11]);
 			}
 			boolean won = false;
-			if(UUIDHandler.getUUID(winner) != null && UUIDHandler.getUUID(winner).equals(uuid)) won = true;
+			if(SQLNames.getUUID(winner) != null && SQLNames.getUUID(winner).equals(uuid)) won = true;
 			
 			ItemStack item = new ItemStack(Material.INK_SACK, 1, (short) 10);
 			List<String> lore = new ArrayList<String>();
@@ -251,8 +251,8 @@ public class DuelStats implements Listener {
 	}
 	
 	public void win(Player winner, Player loser, String arena, String kit, double damage, boolean isRanked, int elo) {
-		String winnerU = UUIDHandler.getUUID(winner.getName());
-		String loserU = UUIDHandler.getUUID(loser.getName());
+		String winnerU = SQLNames.getUUID(winner.getName());
+		String loserU = SQLNames.getUUID(loser.getName());
 		String game = ThomiAPI.getTime("dd.MM.yyyy-HH:mm:ss") + " " + winner.getName() + " > " + loser.getName() + " (Kit: " + kit + ", Arena: " + arena + ") HP: " + winner.getHealth() + " ELO: " + elo;
 
 		File arenaFile = new File(plugin.getDataFolder() + "/arenas/" + arena.replace(".yml", "") + ".yml");
@@ -327,7 +327,7 @@ public class DuelStats implements Listener {
 	}
 	
 	public void sendStats(Player p, String target) {
-		String uuid = UUIDHandler.getUUID(target);
+		String uuid = SQLNames.getUUID(target);
 		File file = new File(plugin.getDataFolder() + "/players/" + uuid + ".yml");
 		if(uuid != null) {
 			if(file.exists()) {
